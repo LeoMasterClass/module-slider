@@ -1,0 +1,54 @@
+/* css lié au slider */
+#slider {
+    margin: auto;
+    width: 700px;
+ }
+
+
+
+.fa {
+    position: relative;
+    top: 2em;
+    float: left;
+    cursor: pointer;
+    transition: color .25s;
+    &:hover {color: #0086b3;}
+}
+.fa-angle-left {
+    margin-right: .5em;
+    margin-left: .25em;
+}
+.slider {
+    position: relative;
+    float: left;
+    padding: 0;
+    margin: 0;
+    width: 600px;
+    list-style-type: none;
+}
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+}
+
+.titre-slider {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+}
+
+.titre-slider p{
+    color:  white;
+}
+
+#prev,#next {
+    position: absolute;
+}
+#prev{
+    left: 0;
+}
+#next{
+    right: 0;
+}
