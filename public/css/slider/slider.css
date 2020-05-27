@@ -1,36 +1,40 @@
 /* css lié au slider */
+
 #slider {
-    margin: auto;
-    width: 700px;
+    width: 800px;
+    height: 300px;
+    overflow: hidden;
+    margin: 35px auto;
  }
-
-
-
-.fa {
-    position: relative;
-    top: 2em;
-    float: left;
-    cursor: pointer;
-    transition: color .25s;
-    &:hover {color: #0086b3;}
-}
-.fa-angle-left {
-    margin-right: .5em;
-    margin-left: .25em;
-}
-.slider {
-    position: relative;
-    float: left;
-    padding: 0;
-    margin: 0;
-    width: 600px;
-    list-style-type: none;
+ 
+.slides {
+     /* Pourcentage du width a modifier selon le besoin,
+     100% pour une image donc par exemple 4 images = 400% */
+    width: 300%;
+    height: 300px;
+    padding:0; margin:0;
+    list-style: none;
 }
 .slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: #fff;
+    float: left;
+}
+
+.prev,.next{
+	float:left;
+	margin-top:130px;
+	cursor: pointer;
+}
+
+.prev{
+	position:relative;
+	margin-right:-45px;
+	z-index:100;
+}
+
+.next{
+	position:relative;
+	margin-left:-45px;
+	z-index:100;
 }
 
 .titre-slider {

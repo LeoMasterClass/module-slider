@@ -22,7 +22,7 @@
                         @foreach($sliderInfos as $sliderInfo)
                           <tr>
                             <th scope="row">{{ $sliderInfo->id }}</th>
-                            <td>{{ asset($sliderInfo->img) }}</td>
+                            <td>{{ asset($sliderInfo->img_thumb) }}</td>
                             <td>{{ $sliderInfo->title }}</td>
                             <td class="text-center"><a href=""><i class="icon-panel fas fa-edit"></i></a></td>
                             <td class="text-center"><a href=""><i class="icon-panel fas fa-window-close"></i></a></td>

@@ -7,19 +7,30 @@
             <div class="card">
                 <div class="card-header">Panel Slider - Ajout d'une image</div>
 
-                <form action="/admin/slider/create">
+                @if ($errors->has('title'))
+
+                <div class="message error">
+                  {{ $errors->first('title')}}
+                </div>
+
+                @endif
+
+                <form action="{{ route('admin.slider.store') }}" method="POST" enctype="multipart/form-data" novalidate>
+                  @csrf
                     <div class="form-group">
-                      <label for="email">Email address:</label>
-                      <input type="email" class="form-control" placeholder="Enter email" id="email">
+
+                      <label for="title">Titre:</label>
+                      <input type="text" class="form-control" placeholder="Titre" id="title" value="{{ old('title') }}" name="title">
+
                     </div>
+                    
                     <div class="form-group">
-                      <label for="img_thumbnail">Image vignette:</label>
-                      <input type="file" name="img_thumbnail" class="form-control" placeholder="Enter password" id="pwd">
+
+                        <label class="" for="img">Choisir une imgae</label>
+                        <input type="file" class="" id="" name="img">
+
                     </div>
-                    <div class="form-group">
-                        <label for="img">Image slider:</label>
-                        <input type="file" name="img" class="form-control" placeholder="Enter password" id="pwd">
-                      </div>
+
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
 

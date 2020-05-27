@@ -73,6 +73,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                <a class="dropdown-item" href="{{ route('home') }}">Mon compte</a>
                                 @can('manage-users')
                                 <a class="dropdown-item" href="{{ route('admin.slider.index') }}">Administration slider</a>
                                 <a class="dropdown-item" href="{{ route('admin.users.index') }}">Administration utilisateur</a>

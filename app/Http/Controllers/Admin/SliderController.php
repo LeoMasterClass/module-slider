@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Slider;
 use Illuminate\Http\Request;
+use Validator;
+use Image;
+use File;
+use Auth;
+use Carbon\Carbon;
 
 class SliderController extends Controller
 {
@@ -42,7 +47,36 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            "title" => 'required', 'string',
+            "img" => 'image|mimes:jpeg,png,jpg|max:1000',
+        ]);
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput();
+        }
+        $slider = new Slider;
+
+        $slider->title = $request->title;
+
+        if($request->hasFile('img')){
+            $img = $request->file('img');
+
+            $fileName = time() . '.' . $img->getClientOriginalExtension();
+
+            // chemin d'acces au image
+            $imagePath = 'img/image_slider/';
+            $imageMinPath = 'img/image_slider_thumbnail/';
+
+            $imgMin = Image::make($img)->resize(50,50)->save($imageMinPath.$fileName);
+            $img = Image::make($img)->save($imagePath.$fileName);
+            
+            $slider->img_thumb = $imageMinPath.$fileName;
+            $slider->img = $imagePath.$fileName;
+        }
+
+        $slider->save();
+
+        return redirect()->route('admin.slider.index');
     }
 
     /**

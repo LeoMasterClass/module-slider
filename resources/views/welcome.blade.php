@@ -18,14 +18,15 @@
 
             <div class="container">
                 {{-- Slider --}}
-                <div class="slider-outer">
-                    <img src="{{ asset(img\img_slider\arrow_left.png) }}" class="prev" alt="Prev">
-                    <div class="slider-inner">
-                      <img src="{{ asset(img\img_slider\img_slider_module1.jpg) }}" class="active">
-                      <img src="{{ asset(img\img_slider\img_slider_module2.jpg) }}">
-                      <img src="{{ asset(img\img_slider\img_slider_module3.jpg) }}">
-                    </div>
-                    <img src="{{ asset(img\img_slider\arrow_right.png) }}" class="next" alt="Next">
-                  </div>
+                <img src="{{ asset('img/img_slider/arrow_left.png') }}" class="prev" alt="Prev">
+                <div id="slider" class="">
+                    <ul class="slides">
+                      <li class="slide"><img src="{{ asset('img/img_slider/img_slider_module1.jpg') }}"></li>
+                      <li class="slide"><img src="{{ asset('img/img_slider/img_slider_module2.jpg') }}"></li>
+                      <li class="slide"><img src="{{ asset('img/img_slider/img_slider_module3.jpg') }}"></li>
+                    </ul>
+                </div>
+                <img src="{{ asset('img/img_slider/arrow_right.png') }}" class="next" alt="Next">
+
         </div>
 @endsection
