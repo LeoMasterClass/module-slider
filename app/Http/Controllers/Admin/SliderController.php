@@ -24,9 +24,9 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $sliderInfos = Slider::all();
+        $slider = Slider::all();
 
-        return view('admin.slider.index',compact('sliderInfos'));
+        return view('admin.slider.index',compact('slider'));
     }
 
     /**
@@ -69,7 +69,7 @@ class SliderController extends Controller
 
             $imgMin = Image::make($img)->resize(50,50)->save($imageMinPath.$fileName);
             $img = Image::make($img)->save($imagePath.$fileName);
-            
+
             $slider->img_thumb = $imageMinPath.$fileName;
             $slider->img = $imagePath.$fileName;
         }
@@ -98,7 +98,7 @@ class SliderController extends Controller
      */
     public function edit(Slider $slider)
     {
-        //
+        return view('admin.slider.edit', compact('slider'));
     }
 
     /**
@@ -110,7 +110,39 @@ class SliderController extends Controller
      */
     public function update(Request $request, Slider $slider)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'img' => 'image|mimes:jpeg,png,jpg|max:1000'
+        ]);
+
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput();
+        }
+
+
+        $slider->title = $request->title;
+        $slider->updated_at = Carbon::now();
+
+        if($request->hasFile('img')){
+            $img = $request->file('img');
+
+            $fileName = time() . '.' . $img->getClientOriginalExtension();
+
+            $imagePath = 'img/image_slider/';
+            $imageMinPath = 'img/image_slider_thumbnail/';
+
+            $imgMin = Image::make($img)->resize(50,50)->save($imageMinPath.$fileName);
+            $img = Image::make($img)->save($imagePath.$fileName);
+
+
+            $slider->img = $imagePath.$fileName;
+            $slider->img_thumb = $imageMinPath.$fileName;
+        }
+
+
+        $slider->update();
+
+        return redirect()->route('admin.slider.index', $slider->id)->withStatus("L'image a bien été modifiée !");
     }
 
     /**
@@ -121,6 +153,12 @@ class SliderController extends Controller
      */
     public function destroy(Slider $slider)
     {
-        //
+
+
+        File::delete($slider->img, $slider->img_thumb);
+
+        $slider->delete();
+
+        return redirect()->route('admin.slider.index')->withStatus('La question a bien été supprimée !');
     }
 }

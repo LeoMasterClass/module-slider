@@ -19,13 +19,22 @@
                           </tr>
                         </thead>
                         <tbody>
-                        @foreach($sliderInfos as $sliderInfo)
+                        @foreach($slider as $sliderInfo)
                           <tr>
                             <th scope="row">{{ $sliderInfo->id }}</th>
-                            <td>{{ asset($sliderInfo->img_thumb) }}</td>
+                            <td><img src="{{ asset($sliderInfo->img_thumb) }}" alt=""></td>
                             <td>{{ $sliderInfo->title }}</td>
-                            <td class="text-center"><a href=""><i class="icon-panel fas fa-edit"></i></a></td>
-                            <td class="text-center"><a href=""><i class="icon-panel fas fa-window-close"></i></a></td>
+                            <td><a href="{{ route('admin.slider.edit', $sliderInfo->id) }}"><i class="icon-panel fas fa-edit"></i></a></td>
+                            <td>
+                              <a href="{{route('admin.slider.destroy', $sliderInfo->id)}} "
+                                onclick="event.preventDefault(); document.getElementById('destroy{{$sliderInfo->id}}').submit();"><i
+                                    class="fas fa-minus"></i></a>
+                              <form method="POST" id="destroy{{$sliderInfo->id}}" action="{{route('admin.slider.destroy', $sliderInfo->id)}} "
+                                style="display: none;">
+                                @csrf
+                                @method("DELETE")
+                              </form>
+                            </td>
                           </tr>
                         @endforeach
                         </tbody>
