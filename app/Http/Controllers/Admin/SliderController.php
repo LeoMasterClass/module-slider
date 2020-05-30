@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Validator;
 use Image;
 use File;
@@ -160,5 +161,17 @@ class SliderController extends Controller
         $slider->delete();
 
         return redirect()->route('admin.slider.index')->withStatus('La question a bien été supprimée !');
+    }
+
+    public function publier(Request $request)
+    {
+        if ($request->ajax()) {
+            $slider = Slider::findOrFail($request->id);
+            $slider->is_published = !$slider->is_published;
+            $slider->save();
+        
+
+            return response()->json($slider);
+        }
     }
 }

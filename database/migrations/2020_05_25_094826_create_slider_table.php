@@ -15,6 +15,7 @@ class CreateSliderTable extends Migration
     {
         Schema::create('slider', function (Blueprint $table) {
             $table->id();
+            $table->boolean('is_published')->default(0);
             $table->string('title',50);
             $table->longtext('img_thumb');
             $table->longText('img');

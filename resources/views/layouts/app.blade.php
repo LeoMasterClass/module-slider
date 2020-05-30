@@ -14,6 +14,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
         {{--  Script Slider  --}}
         <script src="{{ asset('js/slider/slider.js') }}"></script>
+        <script src="{{ asset('js/slider/publish.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
