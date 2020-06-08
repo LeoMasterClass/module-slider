@@ -23,12 +23,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('admin/slider/publier', 'Admin\SliderController@publier')->name('admin.slider.publier');
 
-Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function() {
+// Route::get('slider', 'SliderController@index')->name('slider.index');
+// Route::get('slider/edit', 'SliderController@edit')->name('slider.edit');
+
 
     Route::resource('slider','SliderController');
 
-    Route::resource('users','UsersController');
+    // Route::resource('users','UsersController');
 
-});
+    Route::post('Publication-slider', 'SliderController@publier');

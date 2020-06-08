@@ -15,7 +15,7 @@
 
                 @endif
 
-                <form action="{{ route('admin.slider.store') }}" method="POST" enctype="multipart/form-data" novalidate>
+                <form action="{{ route('slider.store') }}" method="POST" enctype="multipart/form-data" novalidate>
                   @csrf
                     <div class="form-group">
 

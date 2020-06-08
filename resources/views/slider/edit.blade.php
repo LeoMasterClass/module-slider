@@ -15,7 +15,7 @@
 
                 @endif
 
-                <form action="{{ route('admin.slider.update', $slider->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('slider.update', $slider->id) }}" method="POST" enctype="multipart/form-data">
                   @csrf
                   @method('PUT')
                     <img src="{{ asset($slider->img) }}" class="rounded mx-auto d-block" alt="...">

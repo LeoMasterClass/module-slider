@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Slider;
@@ -14,10 +14,7 @@ use Carbon\Carbon;
 
 class SliderController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +24,7 @@ class SliderController extends Controller
     {
         $slider = Slider::all();
 
-        return view('admin.slider.index',compact('slider'));
+        return view('slider.index',compact('slider'));
     }
 
     /**
@@ -37,7 +34,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view('admin.slider.create');
+        return view('slider.create');
     }
 
     /**
@@ -77,7 +74,7 @@ class SliderController extends Controller
 
         $slider->save();
 
-        return redirect()->route('admin.slider.index');
+        return redirect()->route('slider.index');
     }
 
     /**
@@ -99,7 +96,7 @@ class SliderController extends Controller
      */
     public function edit(Slider $slider)
     {
-        return view('admin.slider.edit', compact('slider'));
+        return view('slider.edit', compact('slider'));
     }
 
     /**
@@ -143,7 +140,7 @@ class SliderController extends Controller
 
         $slider->update();
 
-        return redirect()->route('admin.slider.index', $slider->id)->withStatus("L'image a bien été modifiée !");
+        return redirect()->route('slider.index', $slider->id)->withStatus("L'image a bien été modifiée !");
     }
 
     /**
@@ -160,18 +157,16 @@ class SliderController extends Controller
 
         $slider->delete();
 
-        return redirect()->route('admin.slider.index')->withStatus('La question a bien été supprimée !');
+        return redirect()->route('slider.index')->withStatus('La question a bien été supprimée !');
     }
 
     public function publier(Request $request)
     {
-        if ($request->ajax()) {
-            $slider = Slider::findOrFail($request->id);
-            $slider->is_published = !$slider->is_published;
-            $slider->save();
-        
+        $id = $request->input('id');
+        $slider = Slider::findOrFail($id);
+        $slider->is_published = !$slider->is_published;
+        $slider->save();
 
-            return response()->json($slider);
-        }
+        return response()->json($slider);
     }
 }

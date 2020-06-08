@@ -29,10 +29,12 @@
 .next{
     right: 0;
     top: 45%;
+    background-color: white;
 }
 .prev{
     left: 0;
     top: 45%;
+    background-color: white;
 }
 
 /* Css lié au titre de l'image */

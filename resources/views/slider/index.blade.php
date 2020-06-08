@@ -10,16 +10,14 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
         {{--  Script Slider  --}}
-        <script src="{{ asset('js/slider/slider.js') }}"></script>
         <script src="{{ asset('js/slider/publish.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/c123eab75c.js" crossorigin="anonymous"></script>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -31,7 +29,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -85,11 +83,80 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
 
         <main class="py-4">
-            @yield('content')
-        </main>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Panel Slider</div>
+
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Publier</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Titre</th>
+                            <th scope="col">Actions</th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($slider as $sliderInfo)
+                          <tr>
+                            <th scope="row">{{ $sliderInfo->id }}</th>
+                            <td>
+                              <label class="published" data-id="{{$sliderInfo->id}}">
+                                  <input type="checkbox" @if($sliderInfo->is_published) checked @endif  >
+                              </label>
+                            </td>
+                            <td><img src="{{ asset($sliderInfo->img_thumb) }}" alt=""></td>
+                            <td>{{ $sliderInfo->title }}</td>
+                            <td><a href="{{ route('slider.edit', $sliderInfo->id) }}"><button type="button" class="btn btn-primary">Editer</button></a></td>
+                            <td>
+                              <a href="{{route('slider.destroy', $sliderInfo->id)}} "
+                                onclick="event.preventDefault(); document.getElementById('destroy{{$sliderInfo->id}}').submit();"><button type="button" class="btn btn-danger">Supprimer</button></a>
+                              <form method="POST" id="destroy{{$sliderInfo->id}}" action="{{route('slider.destroy', $sliderInfo->id)}} "
+                                style="display: none;">
+                                @csrf
+                                @method("DELETE")
+                              </form>
+                            </td>
+                          </tr>
+                        @endforeach
+                        </tbody>
+                      </table>
+                      <div id="resultat"></div>
+                      <div class="text-start">
+                      <a href="{{ route('slider.create') }}"><button type="button" class="btn btn-primary">Ajouter une image</button></a></a>
+                      </div>
+                </div>
+                
+            </div>
+        </div>
+        
     </div>
+</div>
+</main>
+</div>
+<script>
+
+$('.published').on('change', function (event) {
+  var checkBoxes = $("input[name=recipients\\[\\]]");
+  checkBoxes.prop("checked", !checkBoxes.prop("checked"));
+  id = $(this).data('id');
+  $.ajax({
+    type: 'POST',
+    url: "Publication-slider",
+    data: {
+      '_token': $('input[name=_token]').val(),
+      'id': id
+    },
+  });
+});
+</script>
 </body>
 </html>
